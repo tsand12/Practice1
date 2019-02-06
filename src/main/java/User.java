@@ -1,19 +1,20 @@
 import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 @Entity
+@Table(name="users")
 public class User {
 
     @Id
     @SequenceGenerator(name="user_generator", sequenceName = "users_sequence", allocationSize = 1)
     @GeneratedValue(generator = "person_generator")
     private Long id;
+    @Column
     private String firstName;
+    @Column
     private String lastName;
    // private String authToken;
+   @Column
     private int age;
     //private Date birthday;
 
