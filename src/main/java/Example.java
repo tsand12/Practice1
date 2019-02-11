@@ -20,6 +20,7 @@ public class Example {
             @Override
             public void run(String... args) throws Exception {
                 System.err.println(repository.findAll());
+
             }
         };
     }
