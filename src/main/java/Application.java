@@ -34,8 +34,8 @@ public class Application {
         // be automatically updated when modified.
         templateResolver.setCacheable(true);
 
-        this.templateEngine = new TemplateEngine();
-        this.templateEngine.setTemplateResolver(templateResolver);
+        templateEngine = new TemplateEngine();
+        templateEngine.setTemplateResolver(templateResolver);
 
         this.controllersByURL = new HashMap<String, Controller>();
    /*     this.controllersByURL.put("/", new HomeController());

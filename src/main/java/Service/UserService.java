@@ -1,3 +1,8 @@
+package Service;
+
+import Entity.User;
+import Repository.UserRepo;
+
 import java.util.List;
 
 public class UserService {

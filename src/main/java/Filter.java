@@ -1,4 +1,5 @@
 import Controller.Controller;
+import Entity.User;
 import org.thymeleaf.ITemplateEngine;
 
 import javax.servlet.*;

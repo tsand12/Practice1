@@ -1,3 +1,5 @@
+package Entity;
+
 import java.util.Date;
 import javax.persistence.*;
 
@@ -20,7 +22,7 @@ public class User {
 
     public User() {}
 
-    public User(String firstName, String lastName, String authToken, int age, Date birthday) {
+    public User(String firstName, String lastName, int age) {
         this.firstName = firstName;
         this.lastName = lastName;
        // this.authToken = authToken;

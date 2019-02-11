@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 @org.springframework.stereotype.Controller
 public class HomeController implements Controller {
 
-    public HomeController(){
+    /*public HomeController(){
         super();
-    }
+    }*/
     /*@RequestMapping(value="/home", method= RequestMethod.GET)
     String home(){
         return "home";
