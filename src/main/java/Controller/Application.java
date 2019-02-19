@@ -1,4 +1,5 @@
-import Controller.Controller;
+package Controller;
+
 import org.thymeleaf.ITemplateEngine;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
@@ -12,7 +13,7 @@ import java.util.Map;
 public class Application {
 
     private TemplateEngine templateEngine;
-    private Map<String, Controller> controllersByURL;
+    private Map<String, IGTVGController> controllersByURL;
 
 
 
@@ -25,8 +26,8 @@ public class Application {
         // HTML is the default mode, but we will set it anyway for better understanding of code
         templateResolver.setTemplateMode(TemplateMode.HTML);
         // This will convert "home" to "/WEB-INF/templates/home.html"
-        templateResolver.setPrefix("/WEB-INF/templates/");
-        templateResolver.setSuffix(".html");
+       // templateResolver.setPrefix("/WEB-INF/templates/");
+        //templateResolver.setSuffix(".html");
         // Set template cache TTL to 1 hour. If not set, entries would live in cache until expelled by LRU
         templateResolver.setCacheTTLMs(Long.valueOf(3600000L));
 
@@ -37,9 +38,9 @@ public class Application {
         templateEngine = new TemplateEngine();
         templateEngine.setTemplateResolver(templateResolver);
 
-        this.controllersByURL = new HashMap<String, Controller>();
-   /*     this.controllersByURL.put("/", new HomeController());
-        this.controllersByURL.put("/product/list", new ProductListController());
+        this.controllersByURL = new HashMap<String, IGTVGController>();
+         this.controllersByURL.put("/", new HomeController());
+         /* this.controllersByURL.put("/product/list", new ProductListController());
         this.controllersByURL.put("/product/comments", new ProductCommentsController());
         this.controllersByURL.put("/order/list", new OrderListController());
         this.controllersByURL.put("/order/details", new OrderDetailsController());
@@ -49,7 +50,7 @@ public class Application {
     }
 
 
-    public Controller resolveControllerForRequest(final HttpServletRequest request) {
+    public IGTVGController resolveControllerForRequest(final HttpServletRequest request) {
         final String path = getRequestPath(request);
         return this.controllersByURL.get(path);
     }

@@ -1,4 +1,5 @@
-import Controller.Controller;
+package Controller;
+
 import Entity.User;
 import org.thymeleaf.ITemplateEngine;
 
@@ -58,7 +59,7 @@ public class Filter implements javax.servlet.Filter {
              * that will process the request. If no controller is available,
              * return false and let other filters/servlets process the request.
              */
-            Controller controller = this.application.resolveControllerForRequest(request);
+            IGTVGController controller = this.application.resolveControllerForRequest(request);
             if (controller == null) {
                 return false;
             }

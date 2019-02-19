@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>The Users Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- <link rel="stylesheet" type="text/css" media="all"
+           href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />-->
+</head>
+
+<body>
+
+<p th:utext="#{home.welcome}">Welcome to the users' page!</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam eos est porro praesentium quam quia quisquam sed temporibus voluptatum? Corporis distinctio eaque fugit maxime nisi, nulla quod similique unde veritatis.</p>
+<div>
+    <form action="#" th:action="@{/}" th:object="${userForm}" method="post">
+        <table>
+            <tr>
+                <td>First Name</td>
+                <td><input type="text" th:field="*{firstName}"/></td>
+                <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error</td>
+            </tr>
+
+            <tr>
+                <td>Last Name</td>
+                <td><input type="text" th:field="*{lastName}"/></td>
+                <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error</td>
+            </tr>
+
+            <tr>
+                <td>Age</td>
+                <td><input type="text" th:field="*{age}"/></td>
+                <td th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</td>
+            </tr>
+
+            <tr>
+                <td><button type="submit">SUBMIT</button></td>
+            </tr>
+        </table>
+        <p>Today is: <span th:text="${today}">12 February 2019</span></p>
+        <!--<p>Today is: 12 February 2019</p>-->
+        <p>First name</p><span><input/></span>
+        <p>Last name</p><span><input/></span>
+        <p>Age</p><span><input/></span>
+        <!-- <input/>
+         <input/>-->
+        <button th:block>submit</button>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>
