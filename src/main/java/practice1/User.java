@@ -1,4 +1,4 @@
-package Practice1;
+package practice1;
 
 import javax.persistence.*;
 

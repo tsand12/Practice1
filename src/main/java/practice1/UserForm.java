@@ -1,4 +1,4 @@
-package Practice1;
+package practice1;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
