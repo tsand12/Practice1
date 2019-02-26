@@ -1,17 +1,25 @@
-package Controller;
+package Practice1;
 
-import Entity.User;
+import Practice1.User;
+import Practice1.UserForm;
+import Practice1.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.validation.Valid;
 @Controller
+@EnableTransactionManagement
 public class UserFormValidationController implements WebMvcConfigurer {
+    @Autowired
+    private UserRepository userRepository;
     //@Override
     public void addViewController(ViewControllerRegistry registry){
         registry.addViewController("/results").setViewName("results");
@@ -33,8 +41,8 @@ public class UserFormValidationController implements WebMvcConfigurer {
             return "home";
         }
 
-
-
+        User newUser = new User(userForm.getFirstName(), userForm.getLastName(), userForm.getAge());
+        userRepository.save(newUser);
         return "redirect:/results";
     }
 }

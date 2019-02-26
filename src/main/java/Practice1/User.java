@@ -1,15 +1,12 @@
-package Entity;
+package Practice1;
 
-import java.util.Date;
 import javax.persistence.*;
 
 @Entity
-@Table(name="users")
 public class User {
 
     @Id
-    @SequenceGenerator(name="user_generator", sequenceName = "users_sequence", allocationSize = 1)
-    @GeneratedValue(generator = "person_generator")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column
     private String firstName;

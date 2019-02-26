@@ -1,13 +1,12 @@
-package Controller;
+package Practice1;
 
 
-import Repository.UserRepository;
+
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.web.bind.annotation.*;
 
-/*@RestController
-@EnableAutoConfiguration*/
+
 @SpringBootApplication
 public class Main {
 
@@ -18,7 +17,7 @@ public class Main {
 
     public static void main(String[] args){SpringApplication.run(Main.class, args);}
 
-    //@Bean
+    /*//@Bean
     public CommandLineRunner runner(UserRepository repository){
         return new CommandLineRunner() {
             @Override
@@ -27,6 +26,6 @@ public class Main {
 
             }
         };
-    }
+    }*/
 
 }
