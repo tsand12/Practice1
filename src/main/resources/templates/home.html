@@ -5,39 +5,45 @@
 <head>
     <title>The Users Page</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- <link rel="stylesheet" type="text/css" media="all"
            href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
 
-<p th:utext="#{home.welcome}">Welcome to the users' page!</p>
+<p th:text="#{home.welcome}">Welcome to the users' page!</p>
 
 <div>
-    <form action="#" th:action="@{/}" th:object="${userForm}" method="post">
-        <table>
-            <tr>
-                <td>First Name</td>
-                <td><input type="text" th:field="*{firstName}"/></td>
-                <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error</td>
-            </tr>
+    <form action="#" th:action="@{/}" th:object="${userForm}" method="post" class="col-md-6">
+        <div class="form-group">
+            <table>
+                <tr>
+                    <td>First Name</td>
+                    <td><input type="text" th:field="*{firstName}"/></td>
+                    <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error</td>
+                </tr>
 
-            <tr>
-                <td>Last Name</td>
-                <td><input type="text" th:field="*{lastName}"/></td>
-                <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error</td>
-            </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td><input type="text" th:field="*{lastName}"/></td>
+                    <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error</td>
+                </tr>
 
-            <tr>
-                <td>Age</td>
-                <td><input type="text" th:field="*{age}"/></td>
-                <td th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</td>
-            </tr>
+                <tr>
+                    <td>Age</td>
+                    <td><input type="text" th:field="*{age}"/></td>
+                    <td th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</td>
+                </tr>
 
-            <tr>
-                <td><button type="submit">SUBMIT</button></td>
-            </tr>
-        </table>
+                <tr>
+                    <td><button class="btn btn-primary btn-block"type="submit">SUBMIT</button></td>
+                </tr>
+            </table>
+        </div>
+
 
 
     </form>

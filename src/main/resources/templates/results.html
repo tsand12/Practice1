@@ -5,12 +5,47 @@
 <head>
     <title>The Users Result Page</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- <link rel="stylesheet" type="text/css" media="all"
            href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 </head>
 
 <body >
-Congratulations! You did a thing.
+
+    <div id="allUsersResults" class="container-fluid">
+        <div>
+            <div>Congratulations! You did a thing.</div>
+        </div>
+
+
+        <div id="resultsTable" class="col-xs-6 col-md-6">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Age</th>
+                </tr>
+                </thead>
+                <tbody class="table-hover">
+                <tr th:if="${users.empty}" class="table-warning">
+                    <td colspan="2"> No users to display</td>
+                </tr>
+                <tr th:each="user : ${users}">
+                    <td><span th:text="${user.firstName}">Default First Name</span></td>
+                    <td><span th:text="${user.lastName}">Default Last Name</span></td>
+                    <td><span th:text="${user.age}">Default Age</span></td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
 
 </body>
 
