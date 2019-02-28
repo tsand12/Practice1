@@ -2,16 +2,14 @@ package practice1;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UserFormValidationController {
@@ -37,14 +35,19 @@ public class UserFormValidationController {
 
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public User getUser(Model model, User user){
-        User newUser = new User();
-        newUser.setAge(user.getAge());
-        newUser.setLastName(user.getLastName());
-        newUser.setFirstName(user.getFirstName());
+    @GetMapping("/users")
+    @ResponseBody
+    public List<User> getAllUsers(Model model, UserForm userForm){
+        //User newUser = new User(userForm.getFirstName(), userForm.getLastName(), userForm.getAge());
+        List<User> users = (List<User>) userRepository.findAll();
+        return users;
+    }
 
-        return newUser;
+    @GetMapping("/user/{id}")
+    @ResponseBody
+    public Optional<User> getUser(@PathVariable("id") long id){
+
+        return userRepository.findById(id);
     }
 
     @PostMapping("/")
