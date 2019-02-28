@@ -14,8 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static sun.plugin2.util.PojoUtil.toJson;
 
 @RunWith(SpringRunner.class)
@@ -41,10 +40,9 @@ public class UserFormValidationControllerTest {
         User user = userRepository.save(new User("Bob", "Smartley", 108));
         String userJson = toJson(user);
 
-        this.mockMvc.perform(get("/results")
-        .accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
+        this.mockMvc.perform(get("/results"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"));
+                .andExpect(view().name("results"));
     }
 
     @Test
