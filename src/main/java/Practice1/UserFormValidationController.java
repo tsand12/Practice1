@@ -17,17 +17,24 @@ public class UserFormValidationController {
     private UserRepository userRepository;
 
 
-    //@Override
+
     public void addViewController(ViewControllerRegistry registry) {
         registry.addViewController("/results").setViewName("results");
     }
 
+
+    /*
+    * Method to display home page/user form with / uri
+    * */
     @GetMapping("/")
     public String showForm(UserForm userForm) {
         return "home";
 
     }
 
+    /*
+    * Method to add all users to model so that it can be displayed in the results page via thymeleaf
+    * */
     @GetMapping("/results")
     public String results(Model model) {
         model.addAttribute("users", userRepository.findAll());
@@ -35,6 +42,9 @@ public class UserFormValidationController {
 
     }
 
+    /*
+    * Method to return json/response with all users
+    * */
     @GetMapping("/users")
     @ResponseBody
     public List<User> getAllUsers(Model model, UserForm userForm){
@@ -43,6 +53,9 @@ public class UserFormValidationController {
         return users;
     }
 
+    /*
+    * Method to return json/response of specific user based on id
+    * */
     @GetMapping("/user/{id}")
     @ResponseBody
     public Optional<User> getUser(@PathVariable("id") long id){
@@ -50,6 +63,10 @@ public class UserFormValidationController {
         return userRepository.findById(id);
     }
 
+    /*
+    * Method to display User form in home page, add new user upon valid submission of form, and redirect to results
+    * page where all users, including newly added user, are displayed
+    * */
     @PostMapping("/")
     public String checkUserInfo(@Valid UserForm userForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

@@ -34,19 +34,20 @@ public class UserFormValidationControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-    @Test
-    public void addViewController() {
-    }
 
+    /*
+    * Test case to ensure all users are returned with the /users uri
+    * */
     @Test
     public void getAllUsers() throws Exception{
         this.mockMvc.perform(get("/users")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-
-
     }
 
+    /*
+    * Test case to ensure home view displays with the / uri
+    * */
     @Test
     public void showForm() throws Exception{
         this.mockMvc.perform(get("/"))
@@ -55,7 +56,9 @@ public class UserFormValidationControllerTest {
 
     }
 
-
+    /*
+    * Test case to ensure results view displays with the /results uri
+    * */
     @Test
     public void results() throws  Exception{
 
@@ -64,6 +67,9 @@ public class UserFormValidationControllerTest {
                 .andExpect(view().name("results"));
     }
 
+    /*
+    * Test case to check if user was added
+    * */
     @Test
     public void checkUserInfo() throws Exception {
 
