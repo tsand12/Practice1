@@ -11,13 +11,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 
-
+//https://www.petrikainulainen.net/programming/spring-framework/unit-testing-of-spring-mvc-controllers-rest-api/
 
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -35,9 +37,11 @@ public class UserFormValidationControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    /*
-    * Test case to ensure all users are returned with the /users uri
-    * */
+
+    /**
+     * Test case to ensure all users are returned with the /users uri
+     * @throws Exception
+     */
     @Test
     public void getAllUsers() throws Exception{
         this.mockMvc.perform(get("/users")
@@ -45,9 +49,10 @@ public class UserFormValidationControllerTest {
                 .andExpect(status().isOk());
     }
 
-    /*
-    * Test case to ensure home view displays with the / uri
-    * */
+    /**
+     * Test case to ensure home view displays with the / uri
+     * @throws Exception
+     */
     @Test
     public void showForm() throws Exception{
         this.mockMvc.perform(get("/"))
@@ -56,9 +61,10 @@ public class UserFormValidationControllerTest {
 
     }
 
-    /*
-    * Test case to ensure results view displays with the /results uri
-    * */
+    /**
+     * Test case to ensure results view displays with the /results uri
+     * @throws Exception
+     */
     @Test
     public void results() throws  Exception{
 
@@ -67,9 +73,10 @@ public class UserFormValidationControllerTest {
                 .andExpect(view().name("results"));
     }
 
-    /*
-    * Test case to check if user was added
-    * */
+    /**
+     *  Test case to check if user was added
+     * @throws Exception
+     */
     @Test
     public void checkUserInfo() throws Exception {
 
@@ -88,5 +95,161 @@ public class UserFormValidationControllerTest {
 
 
 
+    }
+
+    /**
+     * User form validation test case
+     * User input is invalid when input for "age" parameter is less than 18
+     * @throws Exception
+     */
+    @Test
+    public void validateUserFormInput_TooYoung() throws Exception {
+
+        MockHttpServletRequestBuilder createUser = post("/")
+                .param("firstName", "Ralph")
+                .param("lastName", "Wreckit")
+                .param("age", "2");
+
+        mockMvc.perform(createUser)
+                .andExpect(model().hasErrors());
+    }
+
+    /**
+     * User form validation test case
+     * User input is invalid when input for "firstName" is missing
+     * @throws Exception
+     */
+    @Test
+    public void validateUserFormInput_MissingFirstName() throws Exception {
+        MockHttpServletRequestBuilder createUser = post("/")
+                .param("lastName", "Wreckit")
+                .param("age", "22");
+
+        mockMvc.perform(createUser)
+                .andExpect(model().hasErrors());
+    }
+
+    /**
+     * User form validation test case
+     * User input is invalid when input for "firstName" is too short
+     * @throws Exception
+     */
+    @Test
+    public void validateUserFormInput_FirstNameTooShort() throws Exception {
+        MockHttpServletRequestBuilder createUser = post("/")
+                .param("firstName", "R")
+                .param("lastName", "Wreckit")
+                .param("age", "22");
+
+        mockMvc.perform(createUser)
+                .andExpect(model().hasErrors());
+    }
+
+    /**
+     * User form validation test case
+     * User input is invalid when input for "lastName" is too short
+     * @throws Exception
+     */
+    @Test
+    public void validateUserFormInput_LastNameTooShort() throws Exception {
+        MockHttpServletRequestBuilder createUser = post("/")
+                .param("firstName", "Ralph")
+                .param("lastName", "W")
+                .param("age", "22");
+
+        mockMvc.perform(createUser)
+                .andExpect(model().hasErrors());
+    }
+
+    /**
+     * User form validation test case
+     * User input is invalid when input for "lastName" is too long
+     * @throws Exception
+     */
+    @Test
+    public void validateUserFormInput_LastNameTooLong() throws Exception {
+        MockHttpServletRequestBuilder createUser = post("/")
+                .param("firstName", "Ralph")
+                .param("lastName", "WreckitRalphIThoughtTheMovieWasPrettyOkButIAmAlsoEasilyEntertainedSoDontListenToMe")
+                .param("age", "22");
+
+        mockMvc.perform(createUser)
+                .andExpect(model().hasErrors());
+    }
+
+    /**
+     * User form validation test case
+     * User input is invalid when input for "firstName" is too long
+     * @throws Exception
+     */
+    @Test
+    public void validateUserFormInput_FirstNameTooLong() throws Exception {
+        MockHttpServletRequestBuilder createUser = post("/")
+                .param("firstName", "RalphIsABigGuyWhoIsGonnaWreckItButJustCuzHesABadGuyDoesntMeanHesABadGuy")
+                .param("lastName", "Wreckit")
+                .param("age", "22");
+
+        mockMvc.perform(createUser)
+                .andExpect(model().hasErrors());
+    }
+
+    /**
+     * User form validation test case
+     * User input is invalid when input for "lastName" is missing
+     * @throws Exception
+     */
+    @Test
+    public void validateUserFormInput_MissingLastName() throws Exception {
+        MockHttpServletRequestBuilder createUser = post("/")
+                .param("firstName", "Ralph")
+                .param("age", "22");
+
+        mockMvc.perform(createUser)
+                .andExpect(model().hasErrors());
+    }
+
+    /**
+     * User form validation test case
+     * User input is invalid when input for "age" is missing
+     * @throws Exception
+     */
+    @Test
+    public void validateUserFormInput_MissingAge() throws Exception {
+        MockHttpServletRequestBuilder createUser = post("/")
+                .param("firstName", "Ralph")
+                .param("lastName", "Wreckit");
+
+
+        mockMvc.perform(createUser)
+                .andExpect(model().hasErrors());
+    }
+
+    /**
+     * User form validation test case
+     * User input is invalid when input for all fields are missing
+     * @throws Exception
+     */
+    @Test
+    public void validateUserFormInput_NoUserInput() throws Exception {
+        MockHttpServletRequestBuilder createUser = post("/");
+
+        mockMvc.perform(createUser)
+                .andExpect(model().hasErrors());
+    }
+
+    /**
+     * User form validation test case
+     * User input is valid when all fields have entries and all entries follow validations defined in UserForm class
+     * @throws Exception
+     */
+    @Test
+    public void validateUserFormInput_ValidForm() throws Exception {
+        MockHttpServletRequestBuilder createUser = post("/")
+                .param("firstName", "Ralph")
+                .param("lastName", "Wreckit")
+                .param("age", "22");
+
+        mockMvc.perform(createUser)
+                .andExpect(model().hasNoErrors());
     }
 }
